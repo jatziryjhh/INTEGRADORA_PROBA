@@ -81,7 +81,8 @@
                         <tr>
                             <td>Sesgo</td>
                             <td id="sesgo"></td>
-                        </tr>
+                            <td id="sesgoTipo"></td> <!-- Nueva celda para el tipo de sesgo -->
+                        </tr>                        
                         <tr>
                             <td>Suma de Frecuencias</td>
                             <td id="sumaFrecuencias"></td>
@@ -173,12 +174,10 @@
                 upperBound = lowerBound + classInterval;
             }
 
-            // Calcular y mostrar las demás estadísticas
             const modaElement = document.getElementById("moda");
             const medianaElement = document.getElementById("mediana");
             const mediaElement = document.getElementById("media");
             const desviacionMediaElement = document.getElementById("desviacionMedia");
-            const sesgoElement = document.getElementById("sesgo");
             const sumaFrecuenciasElement = document.getElementById("sumaFrecuencias");
             const sumatoriaFrecuenciaRelativaElement = document.getElementById("sumatoriaFrecuenciaRelativa");
             const sumatoriaFrecuenciaAcumuladaElement = document.getElementById("sumatoriaFrecuenciaAcumulada");
@@ -193,6 +192,22 @@
             const mediaValue = calcularMedia(numbersArray);
             const desviacionMediaValue = calcularDesviacionMedia(numbersArray);
             const sesgoValue = calcularSesgo(numbersArray, mediaValue, medianaValue);
+
+            let sesgoType = "";
+            if (sesgoValue > 0) {
+                sesgoType = "Positivo";
+            } else if (sesgoValue < 0) {
+                sesgoType = "Negativo";
+            } else {
+                sesgoType = "Nulo";
+            }
+
+            // Mostrar el valor y tipo del sesgo en los elementos HTML
+            const sesgoElement = document.getElementById("sesgo");
+            const sesgoTipoElement = document.getElementById("sesgoTipo");
+
+            sesgoElement.innerHTML = sesgoValue.toFixed(2);
+            sesgoTipoElement.innerHTML = `(${sesgoType})`;
 
             modaElement.innerText = modaValue;
             medianaElement.innerText = medianaValue.toFixed(2);
